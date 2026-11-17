@@ -11,7 +11,7 @@ bool rb_push(ring_buffer_t *rb, uint8_t value) {
         return false;
     }
     rb->data[rb->head] = value;
-    rb->head = (rb->head + 1) % RB_CAPACITY;
+    rb->head = (rb->head + 1) & (RB_CAPACITY - 1);
     rb->count++;
     return true;
 }
@@ -21,7 +21,7 @@ bool rb_pop(ring_buffer_t *rb, uint8_t *out) {
         return false;
     }
     *out = rb->data[rb->tail];
-    rb->tail = (rb->tail + 1) % RB_CAPACITY;
+    rb->tail = (rb->tail + 1) & (RB_CAPACITY - 1);
     rb->count--;
     return true;
 }
