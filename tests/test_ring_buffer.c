@@ -32,6 +32,12 @@ int main(void) {
     CHECK(rb_pop(&rb, &value) && value == 42, "wrapped value comes out last");
     CHECK(rb_is_empty(&rb), "buffer is empty after popping everything");
 
+    CHECK(!rb_peek(&rb, &value), "peek on empty buffer fails");
+    rb_push(&rb, 7);
+    CHECK(rb_peek(&rb, &value) && value == 7, "peek returns next value");
+    CHECK(rb_count(&rb) == 1, "peek does not remove the value");
+    CHECK(rb_pop(&rb, &value) && value == 7, "pop after peek returns same value");
+
     printf("\n%d failure(s)\n", failures);
     return failures == 0 ? 0 : 1;
 }

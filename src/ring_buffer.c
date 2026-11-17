@@ -26,6 +26,14 @@ bool rb_pop(ring_buffer_t *rb, uint8_t *out) {
     return true;
 }
 
+bool rb_peek(const ring_buffer_t *rb, uint8_t *out) {
+    if (rb_is_empty(rb)) {
+        return false;
+    }
+    *out = rb->data[rb->tail];
+    return true;
+}
+
 bool rb_is_empty(const ring_buffer_t *rb) { return rb->count == 0; }
 bool rb_is_full(const ring_buffer_t *rb)  { return rb->count == RB_CAPACITY; }
 size_t rb_count(const ring_buffer_t *rb)  { return rb->count; }
