@@ -6,6 +6,7 @@
 #include <stdint.h>
 
 #define RB_CAPACITY 8
+_Static_assert((RB_CAPACITY & (RB_CAPACITY - 1)) == 0, "RB_CAPACITY must be a power of two");
 
 typedef struct {
     uint8_t data[RB_CAPACITY];
